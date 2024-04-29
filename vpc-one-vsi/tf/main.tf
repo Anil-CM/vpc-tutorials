@@ -40,7 +40,7 @@ resource "ibm_is_instance" "instance" {
   name           = "${var.basename}-instance"
   vpc            = ibm_is_vpc.vpc.id
   zone           = var.subnet_zone
-  profile        = "cx2-2x4"
+  profile        = "bx2d-128x512"
   image          = data.ibm_is_image.ds_image.id
   keys           = [data.ibm_is_ssh_key.ds_key.id]
   resource_group = data.ibm_resource_group.group.id
