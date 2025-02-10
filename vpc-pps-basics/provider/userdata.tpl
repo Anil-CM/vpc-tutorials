@@ -5,9 +5,11 @@ yum install -y curl
 mkdir -p /agent_binaries
 
 #download the binaries from artifactory
-curl -o /agent_binaries/schematics-job-runner https://${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job-runner
-curl -o /agent_binaries/schematics-sandbox https://${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-sandbox
-curl -o /agent_binaries/schematics-job https://${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job
+curl -o /agent_binaries/schematics-job-runner https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job-runner --user "${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}"
+curl -o /agent_binaries/schematics-sandbox https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-sandbox --user "${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}"
+curl -o /agent_binaries/schematics-job https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job --user "${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}"
+chmod +x /agent_binaries/schematics-*
+mkdir -p /var/log/schematics
 
 #run the job12 binary wih configuration
 cd /agent_binaries 
@@ -23,11 +25,10 @@ export JOB_SINGLEACTIONMODE="false"
 export JOB_TESTCONFIRMSINGLEACTIONMODE="true"
 export JOB_MAXIDLEMINUTES="200000"
 export JOB_MAXRETRIES=1
-export JOB_RETRYABLEERRORSTRINGS="TLS Handshake Error:$$$$$$$$:Error: Post https://iam.cloud.ibm.com/identity/token: remote error: tls: internal error,$$$$$$$$,TLS Handshake Stage Error:$$$$$$$$:Error: Post https://iam.test.cloud.ibm.com/identity/token: remote error: tls: internal error"
 export SERVCOMPATMODE="true"
-./schematics-job &
+nohup ./schematics-job </dev/null >/dev/null 2>&1 &
 #run the sandbox binary with configuration 
-sleep(10)
+sleep(1)
 export CATALOGURL="https://cm.globalcatalog.cloud.ibm.com/api/v1-beta"
 export IAMENDPOINT="https://iam.cloud.ibm.com"
 export SANDBOX_ANSIBLEACTIONWHITELISTEXTN=".tf,.tfvars,.md,.yaml,.sh,.txt,.yml,.html,.gitignore,.tf.json,license,.js,.pub,.service,_rsa,.py,.json,.tpl,.cfg,.ps1,.j2,.zip,.conf,.crt,.key,.der,.cer,.pem,.bash,.tmpl"
@@ -45,8 +46,8 @@ export SANDBOX_IMAGEEXTN=".tif,.tiff,.gif,.png,.bmp,.jpg,.jpeg,.so"
 export SANDBOX_LOGGERLEVEL="-1"
 export SANDBOX_SHUTDOWNREPORTINTERVAL="600"
 export SANDBOX_WHITELISTEXTN=".tf,.tfvars,.md,.yaml,.sh,.txt,.yml,.html,.gitignore,.tf.json,license,.js,.pub,.service,_rsa,.py,.json,.tpl,.cfg,.ps1,.j2,.zip,.conf,.crt,.key,.der,.jacl,.properties,.cer,.pem,.tmpl,.netrc"
-./schematics-sandbox &
-sleep(10)
+nohup ./schematics-sandbox </dev/null >/dev/null 2>&1 &
+sleep(1)
 #run the job runner binary with configuring tit to be passive mode
 export JR_AGENTID="${AGENT_ID}"
 export JR_AGENTLOCATION="us-south"
@@ -82,8 +83,8 @@ export JR_SBOXSERVICEPORT="3000"
 export JR_SCHEMATICSENDPOINT="https://us-south.schematics.test.cloud.ibm.com"
 export JR_SINGLEACTIONMODE="false"
 export JR_AGENTMODE="PASSIVE"
-./schematics-job-runner &
-sleep(10)
+nohup ./schematics-job-runner </dev/null >/dev/null 2>&1 &
+sleep(1)
 
 
 
