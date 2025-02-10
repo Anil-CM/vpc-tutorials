@@ -13,8 +13,8 @@ resource "ibm_is_security_group_rule" "inbound_http" {
   group     = module.consumer_vpc.vpc_security_group.id
   direction = "inbound"
   tcp {
-    port_max = 80
-    port_min = 80
+    port_max = 2021
+    port_min = 2021
   }
 }
 
@@ -22,8 +22,8 @@ resource "ibm_is_security_group_rule" "outbound_http" {
   group     = module.consumer_vpc.vpc_security_group.id
   direction = "outbound"
   tcp {
-    port_max = 80
-    port_min = 80
+    port_max = 2021
+    port_min = 2021
   }
 }
 
