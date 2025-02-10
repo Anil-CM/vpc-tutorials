@@ -37,7 +37,7 @@ data "ibm_is_ssh_key" "key" {
   name = var.existing_ssh_key_name
 }
 
-data "userdata_file" "init" {
+data "template_file" "init" {
   template = "${file("./userdata.tpl")}"
 
   vars {
