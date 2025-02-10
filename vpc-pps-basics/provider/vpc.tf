@@ -67,7 +67,7 @@ resource "ibm_is_instance" "instance" {
     data.ibm_is_ssh_key.key.id
   ]
 
-  user_data = "${data.userdata_file.init.rendered}"
+  user_data = "${data.template_file.init.rendered}"
   tags      = concat(var.tags, ["vpc"])
 }
 
