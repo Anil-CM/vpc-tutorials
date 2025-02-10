@@ -30,3 +30,20 @@ variable "instance_profile" {
   default = "cx2-2x4"
   description = "Profile used by virtual server instances."
 }
+
+variable "agent_id" {
+  default = ""
+  description = "agent id"
+}
+
+variable "artifactory_password" {
+  default = ""
+}
+
+variable "artifactory_user_name" {
+  default = ""
+}
+
+variable "user_api_key" {
+  default = ""
+}

@@ -37,6 +37,17 @@ data "ibm_is_ssh_key" "key" {
   name = var.existing_ssh_key_name
 }
 
+data "userdata_file" "init" {
+  template = "${file("./userdata.tpl")}"
+
+  vars {
+    AGENT_ID = var.agent_id
+    USER_APIKEY = var.user_api_key
+    ARTIFACTORY_PASSWORD = var.artifactory_password
+    ARTIFACTORY_USER_NAME = var.artifactory_user_name
+  }
+}
+
 resource "ibm_is_instance" "instance" {
   for_each = { for index, subnet in module.provider_vpc.vpc_subnets : index => subnet }
 
@@ -56,7 +67,7 @@ resource "ibm_is_instance" "instance" {
     data.ibm_is_ssh_key.key.id
   ]
 
-  user_data = file("./userdata.sh")
+  user_data = "${data.userdata_file.init.rendered}"
   tags      = concat(var.tags, ["vpc"])
 }
 

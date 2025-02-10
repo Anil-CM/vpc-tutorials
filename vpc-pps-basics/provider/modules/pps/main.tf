@@ -44,7 +44,7 @@ resource "ibm_is_lb_pool_member" "member" {
 
   lb        = restapi_object.lb.id
   pool      = ibm_is_lb_pool.pool.pool_id
-  port      = 80
+  port      = 2021 #changed for agent
   target_id = each.value
 }
 
