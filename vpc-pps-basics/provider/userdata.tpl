@@ -49,7 +49,7 @@ export SANDBOX_WHITELISTEXTN=".tf,.tfvars,.md,.yaml,.sh,.txt,.yml,.html,.gitigno
 sleep(10)
 #run the job runner binary with configuring tit to be passive mode
 export JR_AGENTID="${AGENT_ID}"
-export JR_AGENTLOCATION="eu-gb"
+export JR_AGENTLOCATION="us-south"
 export JR_AGENTNAME="test-agent"
 export JR_AGENTVERSION="1.3.0"
 export JR_ALLOWMULTIPLEAGENTS="true"
@@ -79,7 +79,7 @@ export JR_REGION="us-east"
 export JR_SAVESERVICECOPY="true"
 export JR_SBOXSERVICENAME="localhost"
 export JR_SBOXSERVICEPORT="3000"
-export JR_SCHEMATICSENDPOINT="https://eu-gb.schematics.test.cloud.ibm.com"
+export JR_SCHEMATICSENDPOINT="https://us-south.schematics.test.cloud.ibm.com"
 export JR_SINGLEACTIONMODE="false"
 export JR_AGENTMODE="PASSIVE"
 ./schematics-job-runner &
