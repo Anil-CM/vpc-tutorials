@@ -9,9 +9,18 @@ terraform {
       source  = "Mastercard/restapi"
       version = ">= 1.16.2"
     }
+    template = {
+      source = "hashicorp/template"
+      version = "2.2.0"
+    }
   }
 }
 
 provider "ibm" {
   region = var.region
+}
+
+
+provider "template" {
+
 }
