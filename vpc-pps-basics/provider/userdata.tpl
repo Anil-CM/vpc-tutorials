@@ -5,9 +5,9 @@ yum install -y curl
 mkdir -p /agent_binaries
 
 #download the binaries from artifactory
-curl -o /agent_binaries/schematics-job-runner https://"${ARTIFACTORY_USER_NAME}":"${ARTIFACTORY_PASSWORD}"@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job-runner
-curl -o /agent_binaries/schematics-sandbox https://"${ARTIFACTORY_USER_NAME}":"${ARTIFACTORY_PASSWORD}"@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-sandbox
-curl -o /agent_binaries/schematics-job https://"${ARTIFACTORY_USER_NAME}":"${ARTIFACTORY_PASSWORD}"@https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job
+curl -o /agent_binaries/schematics-job-runner https://${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job-runner
+curl -o /agent_binaries/schematics-sandbox https://${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-sandbox
+curl -o /agent_binaries/schematics-job https://${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}@na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job
 
 #run the job12 binary wih configuration
 cd /agent_binaries 
