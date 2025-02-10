@@ -8,7 +8,11 @@ mkdir -p /agent_binaries
 curl -o /agent_binaries/schematics-job-runner https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job-runner --user "${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}"
 curl -o /agent_binaries/schematics-sandbox https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-sandbox --user "${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}"
 curl -o /agent_binaries/schematics-job https://na-public.artifactory.swg-devops.com/artifactory/wcp-schematics-dev-team-generic-local/vpe-agent-test/schematics-job --user "${ARTIFACTORY_USER_NAME}:${ARTIFACTORY_PASSWORD}"
-chmod +x /agent_binaries/schematics-*
+sleep 10
+chmod +x /agent_binaries/schematics-job-runner
+chmod +x /agent_binaries/schematics-sandbox
+chmod +x /agent_binaries/schematics-job
+
 mkdir -p /var/log/schematics
 
 #run the job12 binary wih configuration
@@ -28,7 +32,7 @@ export JOB_MAXRETRIES=1
 export SERVCOMPATMODE="true"
 nohup ./schematics-job </dev/null >/dev/null 2>&1 &
 #run the sandbox binary with configuration 
-sleep(1)
+sleep 1
 export CATALOGURL="https://cm.globalcatalog.cloud.ibm.com/api/v1-beta"
 export IAMENDPOINT="https://iam.cloud.ibm.com"
 export SANDBOX_ANSIBLEACTIONWHITELISTEXTN=".tf,.tfvars,.md,.yaml,.sh,.txt,.yml,.html,.gitignore,.tf.json,license,.js,.pub,.service,_rsa,.py,.json,.tpl,.cfg,.ps1,.j2,.zip,.conf,.crt,.key,.der,.cer,.pem,.bash,.tmpl"
@@ -47,7 +51,7 @@ export SANDBOX_LOGGERLEVEL="-1"
 export SANDBOX_SHUTDOWNREPORTINTERVAL="600"
 export SANDBOX_WHITELISTEXTN=".tf,.tfvars,.md,.yaml,.sh,.txt,.yml,.html,.gitignore,.tf.json,license,.js,.pub,.service,_rsa,.py,.json,.tpl,.cfg,.ps1,.j2,.zip,.conf,.crt,.key,.der,.jacl,.properties,.cer,.pem,.tmpl,.netrc"
 nohup ./schematics-sandbox </dev/null >/dev/null 2>&1 &
-sleep(1)
+sleep 1
 #run the job runner binary with configuring tit to be passive mode
 export JR_AGENTID="${AGENT_ID}"
 export JR_AGENTLOCATION="us-south"
@@ -84,7 +88,7 @@ export JR_SCHEMATICSENDPOINT="https://us-south.schematics.test.cloud.ibm.com"
 export JR_SINGLEACTIONMODE="false"
 export JR_AGENTMODE="PASSIVE"
 nohup ./schematics-job-runner </dev/null >/dev/null 2>&1 &
-sleep(1)
+sleep 1
 
 
 
