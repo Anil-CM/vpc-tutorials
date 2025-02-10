@@ -37,15 +37,14 @@ data "ibm_is_ssh_key" "key" {
   name = var.existing_ssh_key_name
 }
 
-data "template_file" "init" {
-  template = "${file("./userdata.tpl")}"
-
-  vars {
+resource "local_file" "generated_script" {
+  content  = templatefile("./userdata.tpl", {
     AGENT_ID = var.agent_id
     USER_APIKEY = var.user_api_key
     ARTIFACTORY_PASSWORD = var.artifactory_password
     ARTIFACTORY_USER_NAME = var.artifactory_user_name
-  }
+  })
+  filename = "./generated_script.sh"
 }
 
 resource "ibm_is_instance" "instance" {
@@ -67,7 +66,7 @@ resource "ibm_is_instance" "instance" {
     data.ibm_is_ssh_key.key.id
   ]
 
-  user_data = "${data.template_file.init.rendered}"
+  user_data = local_file.generated_script.content
   tags      = concat(var.tags, ["vpc"])
 }
 
