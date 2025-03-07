@@ -36,14 +36,6 @@ variable "agent_id" {
   description = "agent id"
 }
 
-variable "artifactory_password" {
-  default = ""
-}
-
-variable "artifactory_user_name" {
-  default = ""
-}
-
 variable "user_api_key" {
   default = ""
 }
